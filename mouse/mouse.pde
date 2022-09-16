@@ -10,6 +10,9 @@ color darkblue = #00008B;
 color black = #000000;
 color cream = #fefae0;
 color bkg = cream;
+color red = #ff0000;
+color blue = #0000FF;
+color green = #00FF00;
 
 void setup() {
   size(800, 600);
@@ -18,36 +21,12 @@ void setup() {
 void draw() {
   background(bkg);
 
-  fill(grey);
-  strokeWeight(5);
+  tactileRect(100, 50, 100, 50, brown);
+  tactileRect(100, 150, 100, 50, yellow);
 
-  //touching buttons
-  if (rectbuttons(100, 100, 200, 100) == true) {
-    stroke(lightblue);
-  } else {
-    stroke(black);
-  }
-
-  rect(100, 100, 200, 100);
-
-  if (circlebuttons(400, 300, 50) == true) {
-    stroke(lightgreen);
-  } else {
-    stroke(yellow);
-  }
-
-  circle(400, 300, 100);
-}
-
-//pressing buttons
-void mousePressed() {
-  if (rectbuttons(100, 100, 200, 100) == true) {
-    bkg = brown;
-  }
-
-  if (circlebuttons(400, 300, 50) == true) {
-    bkg = lightgreen;
-  }
+  tactileCircle(150, 250, 50, red);
+  tactileCircle(150, 350, 50, green);
+  tactileCircle(150, 450, 50, blue);
 }
 
 boolean rectbuttons(int x, int y, int w, int h) {
@@ -64,4 +43,40 @@ boolean circlebuttons(int x, int y, int r) {
   } else {
     return false;
   }
+}
+
+void tactileRect(int x, int y, int w, int h, color f) {
+  fill(f);
+  strokeWeight(5);
+
+  if (rectbuttons(x, y, w, h)) {
+    stroke(white);
+  } else {
+    stroke(black);
+  }
+
+  if (mousePressed) {
+    if (rectbuttons(x, y, w, h)) {
+      bkg = f;
+    }
+  }
+  rect(x, y, w, h);
+}
+
+void tactileCircle(int x, int y, int d, color f) {
+  fill(f);
+  strokeWeight(5);
+
+  if (circlebuttons(x, y, d/2)) {
+    stroke(white);
+  } else {
+    stroke(black);
+  }
+
+  if (mousePressed) {
+    if (circlebuttons(x, y, d/2)) {
+      bkg = f;
+    }
+  }
+  circle(x, y, d);
 }
